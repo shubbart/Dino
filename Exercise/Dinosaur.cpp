@@ -1,9 +1,12 @@
 #include <iostream>
 #include "DinoAttack.h"
+#include <ctime> 
+
 using std::string;
 
 int randRange(int start, int end)
 {
+	srand(time(NULL));
 	return rand() % (end - start + 1) + start;
 }
 
@@ -65,6 +68,8 @@ void main()
 	system("pause");
 
 	int attack;
+	int playerDamage;
+	int dinoDamage;
 
 	while (dino1.health > 0 && player.health > 0)
 	{
@@ -73,27 +78,35 @@ void main()
 
 		if (attack < 1 || attack > 2)
 		{
-			printf("Please input a valid attack.\n");
+			printf("Please input a valid attack.\n\n");
 		}
 
 		if (attack == 1)
 		{
+			playerDamage = (randRange(0, 15) + player.weapon);
+			dinoDamage = (randRange(0, 10) + dino1.str);
 
-			dino1.health = dino1.health - (randRange(0, 15) + player.weapon);
-			player.health = player.health - (randRange(0, 10) + dino1.str);
+			dino1.health = dino1.health - playerDamage;
+			player.health = player.health - dinoDamage;
 
+			printf("Player dealt %d damage!\n", playerDamage);
 			printf("%s's health: %d\n", dino1.name.c_str(), dino1.health);
-			printf("Player's health: %d\n", player.health);
+			printf("%s dealt %d damage!\n", dino1.name.c_str(), dinoDamage);
+			printf("Player's health: %d\n\n", player.health);
 		}
 
 		else if (attack == 2)
 		{
+			playerDamage = (randRange(0, 60) + player.weapon);
+			dinoDamage = (randRange(15, 40) + dino1.str);
 
-			dino1.health = dino1.health - (randRange(0, 60) + player.weapon);
-			player.health = player.health - (randRange(15, 40) + dino1.str);
+			dino1.health = dino1.health - playerDamage;
+			player.health = player.health - dinoDamage;
 
+			printf("Player dealt %d damage!\n", playerDamage);
 			printf("%s's health: %d\n", dino1.name.c_str(), dino1.health);
-			printf("Player's health: %d\n", player.health);
+			printf("%s dealt %d damage!\n", dino1.name.c_str(), dinoDamage);
+			printf("Player's health: %d\n\n", player.health);
 		}
 
 		if (player.health <= 50)
